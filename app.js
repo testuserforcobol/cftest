@@ -36,13 +36,13 @@ app.use(bodyParser.json());
 
 
 app.get('/', function (req, res) {
-    res.send('Hello, Facebook Messenger Bot.');
+  res.send('Hello, Facebook Messenger Bot.');
 });
 
 app.get('/webhook', (req, res) => {
-    if (req.query['hub.verify_token'] === my_token) {
-      res.send(req.query['hub.challenge']);
-    }
+  if (req.query['hub.verify_token'] === my_token) {
+    res.send(req.query['hub.challenge']);
+  }
   res.send('Error, wrong validation token');
 });
 
@@ -75,5 +75,5 @@ app.post('/webhook', function (req, res) {
 });
 
 app.listen(app.get('port'), function() {
-    console.log('running on port', app.get('port'));
+  console.log('running on port', app.get('port'));
 });
