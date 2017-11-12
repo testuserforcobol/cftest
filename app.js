@@ -67,7 +67,7 @@ app.post('/webhook', function (req, res) {
         } else {
             a3rtMsg = event.message.text;
         }
-          sendTextMessage(sender, a3rtMsg.substring(0, 200));
+        sendTextMessage(sender, a3rtMsg.substring(0, 200));
       });
     }
   }
