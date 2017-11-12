@@ -4,7 +4,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const request = require('request');
 const app = express();
-const token = 'fb044549';
 
 const my_token = process.env.MY_TOKEN;
 const access_token = process.env.ACCESS_TOKEN;
