@@ -1,0 +1,9 @@
+applications:
+- disk_quota: 1024M
+  host: cftest99
+  name: cftest99
+  command: node app.js
+  path: .
+  domain: mybluemix.net
+  instances: 1
+  memory: 60M
