@@ -34,6 +34,7 @@ app.set('port', (process.env.PORT || 3000));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
+
 app.get('/', function (req, res) {
     res.send('Hello, Facebook Messenger Bot.');
 });
@@ -45,6 +46,7 @@ app.get('/webhook', (req, res) => {
   res.send('Error, wrong validation token');
 });
 
+
 app.post('/webhook', function (req, res) {
   let messaging_events = req.body.entry[0].messaging
   for (let i = 0; i < messaging_events.length; i++) {
@@ -52,7 +54,21 @@ app.post('/webhook', function (req, res) {
     let sender = event.sender.id
     if (event.message && event.message.text) {
       let text = event.message.text
-      sendTextMessage(sender, text.substring(0, 200));
+      var webclient = require('request');
+      webclient({
+        url: 'https://api.a3rt.recruit-tech.co.jp/talk/v1/smalltalk',
+        form: { apikey: process.env.a3rt_talk_apikey, query: event.message.text },
+        method: 'POST',
+        json: true
+      }, (err, response, body) => {
+        var a3rtMsg;
+        if (body.status == 0) {
+            a3rtMsg = body.results[0].reply;
+        } else {
+            a3rtMsg = event.message.text;
+        }
+          sendTextMessage(sender, a3rtMsg.substring(0, 200));
+      });
     }
   }
   res.sendStatus(200);
